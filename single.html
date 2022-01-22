@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单例设计模式</title>
+</head>
+<body>
+    <button >点击</button>
+</body>
+<script>
+        //  单例模式例子 ： window doucument
+
+        class Person {
+            static instance;
+            constructor(name){
+                if(!Person.instance){
+                    Person.instance = this;
+                }else{
+                    return Person.instance;
+                }
+                this.name = name;
+            }
+        }
+
+        // let zhangshan = new Person('张三');
+        // let lisi = new Person('李四');
+        // console.log(zhangshan.name,lisi.name); // 张三 张三
+        // console.log(zhangshan === lisi) // true;
+
+        // Object 也是简单的单例
+
+        // 实现通用单例 通过闭包缓存实例
+        function createInstance(fn){
+            let instace ;
+            return function(...args){
+                if(!instace){
+                    instace = new fn(...args);
+                }
+                return instace;
+            }
+        }
+
+        let singlePerson = createInstance(Person);
+        let xxx = new singlePerson('xxx');
+        let qqq = new singlePerson('qqq');
+        console.log(xxx.name,qqq.name) // xxx xxx
+
+        // 单例应用
+        class Dialog {
+            constructor(){
+                let dialog = document.createElement("div");
+                this.dialog = dialog;
+                this.dialog.style.display = "none";
+                this.isShow = false;
+
+            }
+
+            showDialog() {
+                if(!this.isShow){
+                    this.dialog.innerHTML = "弹框"
+                    document.body.appendChild(this.dialog);
+                    this.dialog.style.display = "block"
+                    this.isShow = true
+                }else{
+                    console.log("已经弹出")
+                }
+            }
+        }
+        // let dialog = new Dialog();
+        // let dialog2 = new Dialog()
+        // document.querySelector("button").onclick = function(){
+        //     dialog.showDialog()
+        //     dialog2.showDialog()
+        // }
+
+        let createInstanceFn = createInstance(Dialog);
+        let dialog = new createInstanceFn();
+        let dialog2 = new createInstanceFn()
+        document.querySelector("button").onclick = function(){
+            dialog.showDialog()
+            dialog2.showDialog()
+        }
+
+
+</script>
+</html>

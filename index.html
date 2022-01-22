@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 单一职责
+    // 举例: 构造一个英雄类 ,如果说我们将英雄的所有属性都放到一起初始化或者赋值 那这个构造器要做的事就很多元化
+    class Hero {    
+        constructor(){
+            this.name = "" // 英雄名字
+            this.skillName = "" // 技能名字
+        }
+    }
+
+    // 开闭原则 就是简单的理解就是 包容外部，避免整改内部
+
+    // 里氏替换原则  就是 子类替换父类 但是子类不能重写父类的方法 避免不可逆性
+    class Hero2 {
+        constructor(name){
+            this.name = name 
+        }
+        fly(){
+            console.log('飞')
+        }
+    }
+    class GAILUN extends Hero2 {
+        constructor(){
+            super("盖伦")
+        }
+        fly(){
+            console.log('no fly') // 重写了父类的 fly的方法
+        }
+    }
+
+    // 迪米特法则  比如 a跟b有关联  b跟c有关联，这不表明a与c能直接关联，父子组件，多层父子组件的设计就遵循着地米特法则  不同层级的组件 避免直接进行通信
+
+    //  接口隔离原则 
+
+</script>
+</html>
